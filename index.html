@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Caldas FM 105,9</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a1412 0%, #001a16 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .header { 
+            text-align: center; 
+            padding: 20px; 
+            background: linear-gradient(135deg, rgba(0, 191, 165, 0.2), rgba(0, 105, 92, 0.1));
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+        .bird-logo { 
+            width: 120px; 
+            height: 120px; 
+            margin: 0 auto; 
+            display: block;
+            filter: drop-shadow(0 0 15px rgba(0, 191, 165, 0.5));
+        }
+        h1 { 
+            font-size: 2.5rem; 
+            background: linear-gradient(135deg, #00BFA5, #1DE9B6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 15px 0;
+        }
+        .slogan { color: #FFD600; font-size: 1.2rem; font-weight: 600; }
+        .location { color: #b2dfdb; font-size: 1rem; margin-top: 10px; }
+        
+        .player { 
+            background: rgba(0, 191, 165, 0.1);
+            border-radius: 25px;
+            padding: 40px;
+            margin: 20px 0;
+            text-align: center;
+            border: 2px solid rgba(0, 191, 165, 0.3);
+        }
+        
+        .album-art {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 30px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00BFA5, #00897B);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid rgba(255, 214, 0, 0.3);
+        }
+        
+        .album-art-inner {
+            width: 180px;
+            height: 180px;
+            background: #0a1412;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .playing-indicator {
+            display: flex;
+            gap: 5px;
+            align-items: flex-end;
+            height: 60px;
+        }
+        
+        .bar {
+            width: 10px;
+            background: linear-gradient(to top, #00BFA5, #FFD600);
+            border-radius: 5px;
+            animation: sound 1s ease-in-out infinite;
+        }
+        
+        .bar:nth-child(1) { height: 30px; animation-delay: 0s; }
+        .bar:nth-child(2) { height: 50px; animation-delay: 0.1s; }
+        .bar:nth-child(3) { height: 40px; animation-delay: 0.2s; }
+        .bar:nth-child(4) { height: 60px; animation-delay: 0.3s; }
+        .bar:nth-child(5) { height: 45px; animation-delay: 0.4s; }
+        
+        @keyframes sound {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(0.5); }
+        }
+        
+        .btn-play {
+            background: linear-gradient(135deg, #00BFA5, #00897B);
+            border: none;
+            color: white;
+            padding: 20px 60px;
+            border-radius: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin: 10px;
+            border: 3px solid #FFD600;
+            box-shadow: 0 10px 30px rgba(0, 191, 165, 0.4);
+            transition: transform 0.3s;
+        }
+        
+        .btn-play:hover { transform: scale(1.05); }
+        .btn-play:active { transform: scale(0.95); }
+        
+        .volume-container {
+            margin-top: 30px;
+            padding: 0 20px;
+        }
+        
+        .volume-slider {
+            width: 100%;
+            height: 10px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00BFA5, #FFD600);
+            cursor: pointer;
+            border: 3px solid white;
+        }
+        
+        .chat { 
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px 0;
+            height: 250px;
+            overflow-y: auto;
+            border: 1px solid rgba(0, 191, 165, 0.2);
+        }
+        
+        .chat-header {
+            color: #00BFA5;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .message {
+            background: rgba(0, 191, 165, 0.1);
+            padding: 12px;
+            border-radius: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #00BFA5;
+        }
+        
+        .message-author {
+            color: #FFD600;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .chat-input {
+            width: 100%;
+            padding: 15px;
+            border-radius: 25px;
+            border: none;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+        
+        .chat-input::placeholder { color: #b2dfdb; }
+        
+        .schedule {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .schedule h3 {
+            color: #00BFA5;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .program-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .program-time {
+            background: linear-gradient(135deg, #00BFA5, #00897B);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #b2dfdb;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <!-- Soldadinho do Araripe - Cores Originais -->
+        <svg class="bird-logo" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="100" cy="100" r="90" fill="rgba(229, 57, 53, 0.1)" stroke="#E53935" stroke-width="3"/>
+            <ellipse cx="100" cy="115" rx="35" ry="40" fill="#FFFFFF"/>
+            <path d="M 65 105 Q 40 130 55 155 Q 85 140 90 115" fill="#212121"/>
+            <path d="M 135 105 Q 160 130 145 155 Q 115 140 110 115" fill="#212121"/>
+            <circle cx="100" cy="75" r="25" fill="#FFFFFF"/>
+            <path d="M 80 55 Q 100 20 120 55 Q 100 40 80 55" fill="#E53935"/>
+            <path d="M 125 72 L 140 76 L 125 80" fill="#FFD600"/>
+            <circle cx="110" cy="72" r="4" fill="#212121"/>
+            <circle cx="111" cy="71" r="1.5" fill="#FFFFFF"/>
+            <line x1="85" y1="150" x2="85" y2="170" stroke="#424242" stroke-width="3"/>
+            <line x1="115" y1="150" x2="115" y2="170" stroke="#424242" stroke-width="3"/>
+            <path d="M 78 170 L 92 170 L 85 175 Z" fill="#FFD600"/>
+            <path d="M 108 170 L 122 170 L 115 175 Z" fill="#FFD600"/>
+            <path d="M 30 170 Q 100 160 170 170" stroke="#5D4037" stroke-width="6" fill="none" stroke-linecap="round"/>
+            <ellipse cx="45" cy="165" rx="8" ry="4" fill="#4CAF50" transform="rotate(-25 45 165)"/>
+            <ellipse cx="155" cy="168" rx="8" ry="4" fill="#4CAF50" transform="rotate(25 155 168)"/>
+        </svg>
+        <h1>Nova Caldas FM</h1>
+        <p class="slogan">105,9 MHz - O Som das Fontes</p>
+        <p class="location">📍 Distrito do Caldas, Barbalha - CE</p>
+    </div>
+
+    <div class="player">
+        <div class="album-art" id="visualizer">
+            <div class="album-art-inner">
+                <div class="playing-indicator">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+            </div>
+        </div>
+        <h2 style="margin-bottom: 10px;">🎵 Ao Vivo</h2>
+        <p style="color: #b2dfdb; margin-bottom: 20px;">O Som das Fontes</p>
+        
+        <audio id="radioPlayer" src="https://stm47.srvstm.com:11684/stream"></audio>
+        
+        <button class="btn-play" onclick="togglePlay()" id="playBtn">▶️ Play</button>
+        
+        <div class="volume-container">
+            <input type="range" class="volume-slider" min="0" max="100" value="80" oninput="setVolume(this.value)">
+        </div>
+    </div>
+
+    <div class="schedule">
+        <h3>📅 Programação</h3>
+        <div class="program-item">
+            <div>
+                <strong>Programa Adrenalina</strong><br>
+                <small style="color: #b2dfdb;">Músicas animadas</small>
+            </div>
+            <div class="program-time">06:00</div>
+        </div>
+        <div class="program-item">
+            <div>
+                <strong>Rock - Pop - Nacional</strong><br>
+                <small style="color: #b2dfdb;">Hits nacionais</small>
+            </div>
+            <div class="program-time">10:00</div>
+        </div>
+        <div class="program-item">
+            <div>
+                <strong>Sertanejo Classe A</strong><br>
+                <small style="color: #b2dfdb;">Sertanejo raiz</small>
+            </div>
+            <div class="program-time">12:00</div>
+        </div>
+        <div class="program-item">
+            <div>
+                <strong>Só Forró</strong><br>
+                <small style="color: #b2dfdb;">Forró pé de serra</small>
+            </div>
+            <div class="program-time">15:00</div>
+        </div>
+        <div class="program-item">
+            <div>
+                <strong>Sertanejo</strong><br>
+                <small style="color: #b2dfdb;">Sucessos do momento</small>
+            </div>
+            <div class="program-time">19:00</div>
+        </div>
+    </div>
+
+    <div class="chat">
+        <div class="chat-header">💬 Chat dos Ouvintes</div>
+        <div class="message">
+            <div class="message-author">Rádio Nova Caldas</div>
+            Bem-vindo ao chat! Peça sua música aqui! 🎵
+        </div>
+        <div class="message">
+            <div class="message-author">Maria do Caldas</div>
+            Bom dia! Adoro essa rádio! 💚
+        </div>
+    </div>
+    <input type="text" class="chat-input" placeholder="Digite sua mensagem..." onkeypress="if(event.key==='Enter')alert('Mensagem enviada!')">
+
+    <div class="footer">
+        <p>© 2024 Nova Caldas FM 105,9</p>
+        <p style="color: #00BFA5; margin-top: 10px;">🐦 O Som das Fontes - Distrito do Caldas</p>
+    </div>
+
+    <script>
+        const audio = document.getElementById('radioPlayer');
+        const btn = document.getElementById('playBtn');
+        const visualizer = document.getElementById('visualizer');
+        
+        function togglePlay() {
+            if (audio.paused) {
+                audio.play().then(() => {
+                    btn.textContent = '⏸️ Pause';
+                    visualizer.style.animation = 'spin 10s linear infinite';
+                }).catch(() => {
+                    alert('Erro ao tocar. Toque novamente!');
+                });
+            } else {
+                audio.pause();
+                btn.textContent = '▶️ Play';
+                visualizer.style.animation = 'none';
+            }
+        }
+        
+        function setVolume(value) {
+            audio.volume = value / 100;
+        }
+        
+        // Animação do visualizer
+        setInterval(() => {
+            if (!audio.paused) {
+                document.querySelectorAll('.bar').forEach(bar => {
+                    bar.style.height = Math.random() * 50 + 20 + 'px';
+                });
+            }
+        }, 500);
+    </script>
+</body>
+</html>
